@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for frontend requests
 
 @app.route('/bfhl', methods=['POST'])
 def process_data():
@@ -16,7 +18,7 @@ def process_data():
 
         response = {
             "is_success": True,
-            "user_id": "shivampatel_26042003",  # Replace with your name and DOB
+            "user_id": "shivam_patel_26042003",
             "email": "shivampatel.260403@gmail.com",
             "roll_number": "22BAI71388",
             "numbers": numbers,
@@ -28,14 +30,9 @@ def process_data():
     except Exception as e:
         return jsonify({"is_success": False, "message": str(e)}), 500
 
-
 @app.route('/bfhl', methods=['GET'])
 def get_operation_code():
     return jsonify({"operation_code": 1})
 
-import os
-
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))  # Use Render's provided port or default to 10000
-    app.run(host='0.0.0.0', port=port)
-
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
