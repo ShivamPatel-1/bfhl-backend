@@ -43,5 +43,9 @@ def get_operation_code():
     return jsonify({"operation_code": 1})
 
 # Run the application
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Use Render's provided port or default to 10000
+    app.run(host='0.0.0.0', port=port)
+
